@@ -1,9 +1,20 @@
 const Router = require('express')
 const router = new Router()
 const controller = require('./authController')
+const { check } = require('express-validator')
 
-router.post('./registration', controller.registration)
-router.post('./login', controller.login)
+router.post(
+  '/registration',
+  [
+    check('username', 'User name can"t be empty').notEmpty(),
+    check(
+      'password',
+      'Min length of password must by 4 symbols and max 10'
+    ).isLength({ min: 4, max: 10 })
+  ],
+  controller.registration
+)
+router.post('/login', controller.login)
 router.get('/users', controller.getUsers)
 
 module.exports = router
