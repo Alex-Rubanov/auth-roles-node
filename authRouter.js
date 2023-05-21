@@ -8,6 +8,10 @@ router.post(
   [
     check('username', 'User name can"t be empty').notEmpty(),
     check(
+      'username',
+      'User name should consist at least from 3 characters'
+    ).isLength({ min: 3 }),
+    check(
       'password',
       'Min length of password must by 4 symbols and max 10'
     ).isLength({ min: 4, max: 10 })
